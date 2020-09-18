@@ -2,10 +2,10 @@
 Pytorch implementation of the paper "BPR: Bayesian Personalized Ranking from Implicit Feedback".
 Link to the paper: https://arxiv.org/ftp/arxiv/papers/1205/1205.2618.pdf
 
-##Environment settings
+## Environment settings
 We use Pytorch 1.1.0
 
-##Description
+## Description
 This repository includes the code necessary to:
 
 Train the BPR model and tune its hyperparameters: Run "Train_BPR.py". You can tune the hyperparameters by updating the configuration dictionary. 
@@ -16,5 +16,5 @@ We made two evaluation procedures available (change "loo_eval" in the config dic
 
 After training, the weights of the best model in terms of NDCG@K will be saved in an Output folder.
 
-##Datasets
+## Datasets
 You can train the model on the Movielens 100K and Movielens 1M datasets (Change the "dataset_name" variable). 

@@ -12,23 +12,6 @@ class Engine(object):
         self._metron = MetronAtK(top_k=config['top_k'], loo_eval=self.config['loo_eval'])
         self.opt = use_optimizer(self.model, config)
 
-    #def train_single_batch(self, users, items, ratings):
-    #    assert hasattr(self, 'model'), 'Please specify the exact model !'
-    #    if self.config['use_cuda'] is True:
-    #        users, items, ratings = users.cuda(), items.cuda(), ratings.cuda()
-    #    self.opt.zero_grad()
-    #    ratings_pred, _, _, _ = self.model(users, items)
-    #    loss = self.crit(ratings_pred.view(-1), ratings)
-    #    if self.config['l2_regularization'] > 0:
-    #        l2_reg = 0
-    #        for param in self.model.parameters():
-    #            l2_reg += torch.norm(param)
-    #        loss += self.config['l2_regularization'] * l2_reg
-    #    loss.backward()
-    #    self.opt.step()
-    #    loss = loss.item()
-    #    return loss
-
     def train_single_batch_BPR(self, users, pos_items, neg_items, ratings):
         assert hasattr(self, 'model'), 'Please specify the exact model !'
         if self.config['use_cuda'] is True:

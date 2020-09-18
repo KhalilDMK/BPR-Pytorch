@@ -56,7 +56,7 @@ class MetronAtK(object):
             self._subjects = full
 
     def cal_ndcg(self):
-        """NDCG @ top_K"""
+        """NDCG@K for explicit evaluation"""
         full, top_k = self._subjects, self._top_k
         topp_k = full[full['rank_true'] <= top_k].copy()
         topp_k['idcg_unit'] = topp_k['rank_true'].apply(
@@ -73,7 +73,7 @@ class MetronAtK(object):
         return ndcg
 
     def cal_map_at_k(self):
-        """Map @ top_k"""
+        """MAP@K for explicit evaluation"""
         full, top_k = self._subjects, self._top_k
         users = list(dict.fromkeys(list(full['user'])))
         actual = [list(full[(full['user'] == user) & (full['rank_true'] <= top_k)]['test_item']) for user in users]
@@ -81,13 +81,14 @@ class MetronAtK(object):
         return mapk(actual, predicted, k=top_k)
 
     def cal_hit_ratio_loo(self):
-        """Hit Ratio @ top_K"""
+        """HR@K for Leave-One-Out evaluation"""
         full, top_k = self._subjects, self._top_k
         top_k = full[full['rank'] <= top_k]
         test_in_top_k = top_k[top_k['test_item'] == top_k['item']]  # golden items hit in the top_K items
         return len(test_in_top_k) * 1.0 / full['user'].nunique()
 
     def cal_ndcg_loo(self):
+        """NDCG@K for Leave-One-Out evaluation"""
         full, top_k = self._subjects, self._top_k
         top_k = full[full['rank'] <= top_k]
         test_in_top_k = top_k[top_k['test_item'] == top_k['item']]

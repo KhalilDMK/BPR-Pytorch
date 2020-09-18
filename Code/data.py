@@ -1,11 +1,37 @@
 import torch
 import random
+import numpy as np
 import pandas as pd
 from copy import deepcopy
 from torch.utils.data import DataLoader, Dataset
 from sklearn.model_selection import train_test_split
 
 random.seed(0)
+
+def read_data(dataset_name):
+    """Read dataset"""
+
+    dataset = pd.DataFrame()
+    if dataset_name == 'ml-100k':
+        # Load Movielens 100K Data
+        ml1m_dir = '../Data/ml-100k/u.data'
+        dataset = pd.read_csv(ml1m_dir, sep='\t', header=None, names=['uid', 'mid', 'rating', 'timestamp'],
+                                  engine='python')
+    elif dataset_name == 'ml-1m':
+        # Load Movielens 1M Data
+        ml1m_dir = '../Data/ml-1m/ratings.dat'
+        dataset = pd.read_csv(ml1m_dir, sep='::', header=None, names=['uid', 'mid', 'rating', 'timestamp'],  engine='python')
+
+    # Reindex data
+    user_id = dataset[['uid']].drop_duplicates().reindex()
+    user_id['userId'] = np.arange(len(user_id))
+    dataset = pd.merge(dataset, user_id, on=['uid'], how='left')
+    item_id = dataset[['mid']].drop_duplicates()
+    item_id['itemId'] = np.arange(len(item_id))
+    dataset = pd.merge(dataset, item_id, on=['mid'], how='left')
+    dataset = dataset[['userId', 'itemId', 'rating', 'timestamp']]
+
+    return dataset
 
 class data_loader(Dataset):
     """Wrapper, convert <user, item, rating> Tensor into Pytorch Dataset"""

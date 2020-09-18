@@ -35,13 +35,9 @@ def read_data(dataset_name):
 
 
 class data_loader(Dataset):
-    """Wrapper, convert <user, item, rating> Tensor into Pytorch Dataset"""
+    """Convert user, item, negative and target Tensors into Pytorch Dataset"""
 
     def __init__(self, user_tensor, positive_item_tensor, negative_item_tensor, target_tensor):
-        """
-        args:
-            target_tensor: torch.Tensor, the corresponding rating for <user, item> pair
-        """
         self.user_tensor = user_tensor
         self.positive_item_tensor = positive_item_tensor
         self.negative_item_tensor = negative_item_tensor
@@ -54,13 +50,9 @@ class data_loader(Dataset):
         return self.user_tensor.size(0)
 
 class data_loader_implicit(Dataset):
-    """Wrapper, convert <user, item, rating> Tensor into Pytorch Dataset"""
+    """Convert user and item Tensors into Pytorch Dataset"""
 
     def __init__(self, user_tensor, item_tensor):
-        """
-        args:
-            target_tensor: torch.Tensor, the corresponding rating for <user, item> pair
-        """
         self.user_tensor = user_tensor
         self.item_tensor = item_tensor
 
@@ -71,13 +63,9 @@ class data_loader_implicit(Dataset):
         return self.user_tensor.size(0)
 
 class data_loader_test_explicit(Dataset):
-    """Wrapper, convert <user, item, rating> Tensor into Pytorch Dataset"""
+    """Convert user, item and target Tensors into Pytorch Dataset"""
 
     def __init__(self, user_tensor, item_tensor, target_tensor):
-        """
-        args:
-            target_tensor: torch.Tensor, the corresponding rating for <user, item> pair
-        """
         self.user_tensor = user_tensor
         self.item_tensor = item_tensor
         self.target_tensor = target_tensor
@@ -89,13 +77,9 @@ class data_loader_test_explicit(Dataset):
         return self.user_tensor.size(0)
 
 class data_loader_negatives(Dataset):
-    """Wrapper, convert <user, item, rating> Tensor into Pytorch Dataset"""
+    """Convert user and item negative Tensors into Pytorch Dataset"""
 
     def __init__(self, user_neg_tensor, item_neg_tensor):
-        """
-        args:
-            target_tensor: torch.Tensor, the corresponding rating for <user, item> pair
-        """
         self.user_neg_tensor = user_neg_tensor
         self.item_neg_tensor = item_neg_tensor
 
@@ -112,7 +96,8 @@ class SampleGenerator(object):
     def __init__(self, ratings, config):
         """
         args:
-            ratings: pd.DataFrame, which contains 4 columns = ['userId', 'itemId', 'rating', 'timestamp']
+            ratings: pd.DataFrame containing 4 columns = ['userId', 'itemId', 'rating', 'timestamp']
+            config: dictionary containing the configuration hyperparameters
         """
         assert 'userId' in ratings.columns
         assert 'itemId' in ratings.columns

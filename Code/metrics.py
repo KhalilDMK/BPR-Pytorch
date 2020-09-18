@@ -2,8 +2,6 @@ import math
 import pandas as pd
 from ml_metrics import mapk
 import numpy as np
-import math as m
-from sklearn.metrics import mean_squared_error
 
 
 class MetronAtK(object):

@@ -33,6 +33,7 @@ def read_data(dataset_name):
 
     return dataset
 
+
 class data_loader(Dataset):
     """Wrapper, convert <user, item, rating> Tensor into Pytorch Dataset"""
 

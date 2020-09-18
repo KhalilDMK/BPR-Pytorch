@@ -4,7 +4,7 @@ Pytorch implementation of the paper "BPR: Bayesian Personalized Ranking from Imp
 Link to the paper: https://arxiv.org/ftp/arxiv/papers/1205/1205.2618.pdf
 
 ## Environment settings
-We use Pytorch 1.1.0
+We use Pytorch 1.1.0.
 
 ## Description
 This repository includes the code necessary to:

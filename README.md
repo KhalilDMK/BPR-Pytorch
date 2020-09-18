@@ -7,9 +7,7 @@ Link to the paper: https://arxiv.org/ftp/arxiv/papers/1205/1205.2618.pdf
 We use Pytorch 1.1.0.
 
 ## Description
-This repository includes the code necessary to:
-
-Train the BPR model and tune its hyperparameters: Run "Train_BPR.py". You can tune the hyperparameters by updating the configuration dictionary. 
+This repository includes code to train the BPR model and tune its hyperparameters: Run "Train_BPR.py". You can tune the hyperparameters by updating the configuration dictionary. 
 
 We made two evaluation procedures available (change "loo_eval" in the config dictionary):
 * <b>Leave-One-Out evaluation:</b> where the last interaction of each user is left out as test data and 100 negative items are sampled. The positive item is ranked with respect to the negative items in terms of Hit ratio at cutoff K (HR@K) and Normalized Discounted Cumulative Gain at cutoff K (NDCG@K).
